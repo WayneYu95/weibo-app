@@ -1,6 +1,4 @@
-import userEvent from '@testing-library/user-event';
 import React, { useEffect } from 'react';
-import { mockComponent } from 'react-dom/test-utils';
 import { useDispatch, useMappedState } from 'redux-react-hook';
 import moment from 'moment'
 import { getHomeTimeline } from '../../actions/timeline';
