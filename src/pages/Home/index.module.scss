@@ -1,0 +1,5 @@
+@import '../../styles/mixin.scss';
+
+.avatar{
+    @include round-shape(32px);
+}
