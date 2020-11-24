@@ -9,21 +9,21 @@ const getPostTitle = (
   create_at,
   source,
 ) => (
-    <div className={styles.user}>
-      <img
-        src={user.profile_image_url}
-        className={styles.avatar}
-        alt={user.screen_name}
-      />
-      <div className={styles.userInfo}>
-        <div> {user.screen_name} </div>
-        <div className={styles.extra}>
-          {moment(create_at).fromNow()}
-      来自　<span dangerouslySetInnerHTML={{ __html: source }} />
-        </div>
+  <div className={styles.user}>
+    <img
+      src={user.profile_image_url}
+      className={styles.avatar}
+      alt={user.screen_name}
+    />
+    <div className={styles.userInfo}>
+      <div> {user.screen_name} </div>
+      <div className={styles.extra}>
+        {moment(create_at).fromNow()}
+    来自　<span dangerouslySetInnerHTML={{ __html: source }} />
       </div>
     </div>
-  );
+  </div>
+);
 
 
 const Post = ( {
