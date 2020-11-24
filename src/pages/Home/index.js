@@ -1,6 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { UserOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch, useMappedState } from 'redux-react-hook';
+import InfiniteScroll from 'react-infinite-scroller';
+import { Affix, Row } from 'antd';
+import { Link } from 'react-router-dom';
 import { getHomeTimeline } from '../../actions/timeline';
+import { LOGIN_URL} from '../../constants';
 import Post from './components/post';
 import styles from './index.module.scss';
 
@@ -9,19 +14,34 @@ const mapStateTimeline = state => state.timeline;
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { home = [] } =useMappedState(mapStateTimeline);
+  const { home:{ posts=[], page } = {} } = useMappedState(mapStateTimeline);
 
-  useEffect(() => {
-    dispatch(getHomeTimeline());
-  }, [dispatch]);
+
+  const handleInfiniteOnLoad = () => {
+    dispatch(getHomeTimeline({page: page + 1}));
+  }
 
   return (
     <div className={styles.container}>
-      {
-        home.map(({id, ...rest}) => (
-          <Post key = {id} {...rest} />
-        ))
-      }
+      <Affix offsetTop={0}>
+        <Row 
+          className={styles.appbar}
+          justify="space-between"
+          align="middle"
+        >
+          <a href={LOGIN_URL}><UserOutlined className={styles.icon}/></a>
+          <div className={styles.appTitle}>Weibo app</div>
+          <Link to="/new"><EditOutlined className={styles.icon}/></Link>
+        </Row>
+      </Affix>
+      <InfiniteScroll initialLoad pageStart={1} loadMore={handleInfiniteOnLoad} hasMore>
+        {
+          posts.map(({id, ...rest}) => (
+            <Post key = {id} {...rest} />
+          ))
+        }
+      </InfiniteScroll>
+
     </div>
   );
 };
