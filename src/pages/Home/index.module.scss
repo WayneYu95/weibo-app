@@ -1,5 +1,8 @@
 @import '../../styles/mixin.scss';
+@import '../../styles/variables.scss';
 
-.avatar{
-    @include round-shape(32px);
+.container {
+  background-color: $BACKGROUND_GREY_COLOR;
 }
+
+

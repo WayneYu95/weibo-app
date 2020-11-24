@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useMappedState } from 'redux-react-hook';
-import moment from 'moment'
 import { getHomeTimeline } from '../../actions/timeline';
+import Post from './components/post';
 import styles from './index.module.scss';
 
 const mapStateTimeline = state => state.timeline;
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -15,24 +16,10 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={styles.container}>
       {
-        home.map(({id, text, user, create_at,source }) => (
-          <div key={id } style={{marginBottom:'10px'}}>
-            <div style={{ display:'flex'}}> 
-              <img 
-              src={user.profile_image_url} 
-              className = {styles.avatar} />
-              <div>
-                <div> {user.screen_name} </div>
-                <div> 
-                  {moment(create_at).fromNow()} 
-                  来自　<span dangerouslySetInnerHTML={{__html:source}}/>
-                </div>
-              </div>
-            </div>
-            {text}
-          </div>
+        home.map(({id, ...rest}) => (
+          <Post key = {id} {...rest} />
         ))
       }
     </div>
